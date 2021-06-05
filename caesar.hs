@@ -1,8 +1,8 @@
 import Data.Char
-import Data.Typeable
+
 count x xs = length [x' | x' <- xs, x == x']
 
-letters xs = length [x | x <- xs, typeOf x == typeOf 'a']
+letters xs = length [x | x <- xs, isLower x || isUpper x]
 
 positions x xs = [i | (x', i) <- zip xs [0..], x == x']
 
@@ -35,6 +35,6 @@ crack xs = encode (-factor) xs
              chi_tab = [chi_sqr (rotate n (freqs xs)) freq_table | n <- [0..25]]
 
 main = do
-  let c_text = encode 3 "Haskell is fun"
+  let c_text = encode 3 "This was encrypted using the Caesar cipher"
   print c_text
   print $ crack c_text
