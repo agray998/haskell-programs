@@ -23,7 +23,7 @@ freq_table = [8.1, 1.5, 2.8, 4.2, 12.7, 2.2, 2.0, 6.1, 7.0, 0.2, 0.8, 4.0, 2.4, 
 
 percent n m = (fromIntegral n / fromIntegral m) * 100
 
-freqs xs = [percent (count x xs) (letters xs) | x <- ['a'..'z']]
+freqs xs = [percent ((count x xs) + (count y xs)) (letters xs) | x <- ['a'..'z'], y <- ['A'..'Z'], let_to_int x == let_to_int y]
 
 chi_sqr os es = sum [((o - e) ^ 2) / e | (o, e) <- zip os es]
 
@@ -35,6 +35,6 @@ crack xs = encode (-factor) xs
              chi_tab = [chi_sqr (rotate n (freqs xs)) freq_table | n <- [0..25]]
 
 main = do
-  let c_text = encode 3 "This was encrypted using the Caesar cipher"
+  let c_text = encode 3 "ThIs Is In SpOnGeBoB cAsE"
   print c_text
   print $ crack c_text
